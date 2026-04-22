@@ -1,4 +1,4 @@
-#NEOVIM config
+# NEOVIM config
 
 clone into (default paths):
 1. Linux: ~/.config/
