@@ -1,3 +1,5 @@
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
 vim.lsp.enable({
     "lua_ls",       -- LUA
     "pyright",      -- PYTHON
@@ -7,6 +9,7 @@ vim.lsp.enable({
 })
 
 vim.lsp.config("lua_ls", {
+    capabilities = capabilities,
     settings = {
         Lua = {
             runtime = { version = "LuaJIT" },
@@ -22,6 +25,7 @@ vim.lsp.config("lua_ls", {
 })
 
 vim.lsp.config("pyright", {
+    capabilities = capabilities,
     settings = {
         python = {
             analysis = {
@@ -35,6 +39,7 @@ vim.lsp.config("pyright", {
 })
 
 vim.lsp.config("nil_ls", {
+    capabilites = capabilities,
     settings = {
         ["nil"] = {
             formatting = {
@@ -63,7 +68,7 @@ vim.lsp.config("clangd", {
         "compile_commands.json",
         "compile_flags.txt",
     },
-    capabilities = vim.lsp.protocol.make_client_capabilities(),
+    capabilities = capabilities,
     on_attach = function(client, buffer)
         local opts = { buffer = buffnr }
 	
@@ -79,6 +84,7 @@ end,
 })
 
 vim.lsp.config("gopls", {
+    capabilities = capabilities,
     cmd = { "gopls" },
     filetypes = { "go", "gomod", "gowork", "gotmpl" },
     root_markers = { "go.work", "go.mod", ".git" },

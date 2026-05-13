@@ -5,6 +5,7 @@
 --- packages
 require("packages.packages")
 require("packages.treesitter")
+require("packages.cmp")
 
 --- lsp
 require("lsp")
