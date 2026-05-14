@@ -1,13 +1,17 @@
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 vim.lsp.enable({
-    "lua_ls",       -- LUA
-    "pyright",      -- PYTHON
-    "nil_ls",       -- NIX
-    "clangd",       -- C/CPP
-    "gopls",        -- Go
+    "lua_ls",           -- LUA
+    "pyright",          -- PYTHON
+    "nil_ls",           -- NIX
+    "clangd",           -- C/CPP
+    "gopls",            -- Go
+    "ts_ls",            -- JS/TS
+    "rust_analyzer",    -- Rust
+    "ols",              -- Odin
 })
 
+-- Lua
 vim.lsp.config("lua_ls", {
     capabilities = capabilities,
     settings = {
@@ -24,6 +28,7 @@ vim.lsp.config("lua_ls", {
     },
 })
 
+-- Python
 vim.lsp.config("pyright", {
     capabilities = capabilities,
     settings = {
@@ -38,6 +43,59 @@ vim.lsp.config("pyright", {
     },
 })
 
+-- JS/TS
+vim.lsp.config("ts_ls", {
+    cmd = { "typescript-language-server", "--stdio" },
+    filetypes = {
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+    },
+    root_markers = {
+        "package.json",
+        "tsconfig.json",
+        "jsconfig.json",
+        ".git",
+    },
+    settings = {
+        typescript = {
+            inlayHints = {
+                includeInlayParameterNameHints = "all",
+                includeInlayVariableTypeHints = true,
+            },
+        },
+        javascript = {
+            inlayHints = {
+                includeInlayParameterNameHints = "all",
+            },
+        },
+    },
+})
+
+--Rust
+vim.lsp.config("rust_analyzer", {
+    cmd = { "rust-analyzer" },
+    filetype = { "rust" },
+    root_markers = {
+        "Cargo.toml",
+        "rust-projects.json",
+        ".git",
+    },
+    settings = {
+        [ "rust-analyzer" ] = {
+            cargo = {
+                allFeatures = true,
+            },
+            checkOnSave = true,
+            check = {
+                command = "clippy",
+            },
+        },
+    },
+})
+
+-- Nix
 vim.lsp.config("nil_ls", {
     capabilites = capabilities,
     settings = {
@@ -54,6 +112,7 @@ vim.lsp.config("nil_ls", {
     },
 })
 
+-- C/C++
 vim.lsp.config("clangd", {
     cmd = {
         "clangd",
@@ -83,6 +142,7 @@ vim.lsp.config("clangd", {
 end,
 })
 
+-- Go
 vim.lsp.config("gopls", {
     capabilities = capabilities,
     cmd = { "gopls" },
@@ -96,5 +156,21 @@ vim.lsp.config("gopls", {
             staticcheck = true,
             gofumpt = true,
         },
+    },
+})
+
+-- Odin
+vim.lsp.config("ols", {
+    cmd = { "ols" },
+    filetypes = { "odin" },
+    root_markers = {
+        "ols.json",
+        ".git",
+    },
+    settings = {
+        enable_semantic_tokens = true,
+        enable_document_symbols = true,
+        enable_hover = true,
+        enable_snippets = true,
     },
 })
